@@ -49,6 +49,8 @@ from .models import User
         ),
     ],
 )
+
+
 class SignupView(APIView):
     serializer_class = SignupRequestSerializer
     permission_classes = [AllowAny]
@@ -96,7 +98,6 @@ class LoginView(TokenObtainPairView):
 
 
 # Logout user
-
 @extend_schema(
     tags=["Accounts"],
     description="Logout user by blacklisting the refresh token.",
@@ -132,7 +133,7 @@ class LogoutView(APIView):
             return Response({"detail": "Invalid refresh token"}, status=status.HTTP_400_BAD_REQUEST)
 
 
-# User Profile
+# User Profile schema defintion
 @extend_schema(
     tags=["Accounts"],
     description="Retrieve or update a user's profile by ID.",
@@ -160,6 +161,10 @@ class LogoutView(APIView):
         ),
     ],
 )
+
+
+# User Profile
+
 class UserProfileView(RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserProfileSerializer
