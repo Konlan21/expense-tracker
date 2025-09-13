@@ -127,7 +127,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# settings.py
 AUTH_USER_MODEL = "accounts.User"
 
 
@@ -136,7 +135,11 @@ REST_FRAMEWORK = {
     'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "EXCEPTION_HANDLER": "utils.exception_handler.custom_exception_handler",
 }
+
+
+
 
 
 SPECTACULAR_SETTINGS = {
@@ -145,4 +148,36 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
+
+
+import os
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "[{asctime}] {levelname} {name} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "file": {
+            "level": "ERROR",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(BASE_DIR, "errors.log"),
+            "formatter": "verbose",
+        },
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+    },
+    "root": {
+        "handlers": ["file", "console"],
+        "level": "ERROR",
+    },
+}
+
+
 

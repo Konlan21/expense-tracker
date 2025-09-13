@@ -5,25 +5,11 @@ from .models import Income, Expenditure
 from .serializers import IncomeSerializer, ExpenditureSerializer
 
 
-# tracker/views.py
-from rest_framework import mixins, viewsets
-from rest_framework.permissions import IsAuthenticated
-from .models import Income, Expenditure
-from .serializers import IncomeSerializer, ExpenditureSerializer
-from drf_spectacular.utils import extend_schema
-
 
 
 # Income ViewSet
 @extend_schema(tags=['Income'])
-class IncomeViewSet(
-    mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
-    mixins.CreateModelMixin,
-    mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin,
-    viewsets.GenericViewSet
-):
+class IncomeViewSet(ModelViewSet):
     serializer_class = IncomeSerializer
     permission_classes = [IsAuthenticated]
 
@@ -37,16 +23,9 @@ class IncomeViewSet(
 
 # Expenditure ViewSet
 @extend_schema(tags=['Expenditure'])
-class ExpenditureViewSet(
-    mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
-    mixins.CreateModelMixin,
-    mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin,
-    viewsets.GenericViewSet
-):
+class ExpenditureViewSet(ModelViewSet):
     serializer_class = ExpenditureSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
 
     def get_queryset(self):
         return Expenditure.objects.filter(user=self.request.user)
