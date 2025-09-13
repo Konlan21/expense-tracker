@@ -37,7 +37,7 @@ env\Scripts\activate         # Windows
 pip install -r requirements.txt
 
 ## Apply migrations:
-Apply migrations:
+python manage.py migrate
 
 ## Run the development server:
 python manage.py runserver
