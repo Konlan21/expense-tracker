@@ -21,28 +21,59 @@ A Django REST API for tracking personal income and expenses. Supports JWT authen
 ## Installation
 
 1. Clone the repo:
-
 ```bash
 git clone  https://github.com/Konlan21/expense-tracker.git
 cd expense-tracker
+```
 
 ## Create virtual environment:
+```bash
 python -m venv env
+````
 
 ## Activate virtual environment
+```bash
 source env/bin/activate      # Linux/Mac
-env\Scripts\activate         # Windows
+env/Scripts/activate         # Windows
+````
 
-##Install dependencies
+## Install dependencies:
+
+````bash
 pip install -r requirements.txt
+````
 
 ## Apply migrations:
+````bash
 python manage.py migrate
-
+````
 ## Run the development server:
+```bash
 python manage.py runserver
+```
 
 ## Running Tests
+
+````bash
 pytest
+````
+
+## API Documentation
+
+- **Swagger UI:** [http://localhost:8000/api/docs/](http://localhost:8000/api/docs/)  
+- **Redoc:** [http://localhost:8000/api/redoc/](http://localhost:8000/api/redoc/)  
+- **OpenAPI schema:** [http://localhost:8000/api/schema/](http://localhost:8000/api/schema/)
+
+## Endpoints
+
+- **Authentication:** /auth/  
+- **Income:** /tracker/incomes/  
+- **Expenditure:** /tracker/expenditures/  
+
+> Check Swagger UI for full request and response examples.
+
+
+
+
 
 
