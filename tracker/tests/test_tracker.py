@@ -76,17 +76,17 @@ def test_create_expenditure(api_client, test_user, auth_token):
     data = {
         "category": "FOOD",
         "name_of_item": "Groceries",
-        "estimated_amount": "150.00"
+        "amount": "150.00"
     }
     response = api_client.post(url, data, format="json")
     assert response.status_code == status.HTTP_201_CREATED
     assert response.data["name_of_item"] == "Groceries"
-    assert response.data["estimated_amount"] == "150.00"
+    assert response.data["amount"] == "150.00"
 
 
 @pytest.mark.django_db
 def test_list_expenditures(api_client, test_user, auth_token):
-    Expenditure.objects.create(user=test_user, category="FOOD", name_of_item="Groceries", estimated_amount=150)
+    Expenditure.objects.create(user=test_user, category="FOOD", name_of_item="Groceries", amount=150)
     # api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token}")
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
@@ -99,22 +99,22 @@ def test_list_expenditures(api_client, test_user, auth_token):
 
 @pytest.mark.django_db
 def test_update_expenditure(api_client, test_user, auth_token):
-    exp = Expenditure.objects.create(user=test_user, category="FOOD", name_of_item="Groceries", estimated_amount=150)
+    exp = Expenditure.objects.create(user=test_user, category="FOOD", name_of_item="Groceries", amount=150)
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token}")
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
     url = reverse("expense-detail", kwargs={"pk": exp.id})
-    data = {"category": "FOOD", "name_of_item": "Supermarket", "estimated_amount": "200.00"}
+    data = {"category": "FOOD", "name_of_item": "Supermarket", "amount": "200.00"}
     response = api_client.patch(url, data, format="json")
     assert response.status_code == status.HTTP_200_OK
     exp.refresh_from_db()
     assert exp.name_of_item == "Supermarket"
-    assert str(exp.estimated_amount) == "200.00"
+    assert str(exp.amount) == "200.00"
 
 
 @pytest.mark.django_db
 def test_delete_expenditure(api_client, test_user, auth_token):
-    exp = Expenditure.objects.create(user=test_user, category="FOOD", name_of_item="Groceries", estimated_amount=150)
+    exp = Expenditure.objects.create(user=test_user, category="FOOD", name_of_item="Groceries", amount=150)
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token}")
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
@@ -152,7 +152,7 @@ def test_invalid_expenditure_category(api_client, test_user, auth_token):
     data = {
         "category": "INVALID",
         "name_of_item": "Test Item",
-        "estimated_amount": "100.00"
+        "amount": "100.00"
     }
     response = api_client.post(url, data, format="json")
     assert response.status_code == status.HTTP_400_BAD_REQUEST

@@ -47,7 +47,7 @@ class IncomeViewSet(ModelViewSet):
     examples=[
         OpenApiExample(
             "Create Expenditure Example",
-            value={"category": "TRANSPORT", "name_of_item": "Bus fare", "estimated_amount": 100},
+            value={"category": "TRANSPORT", "name_of_item": "Bus fare", "amount": 100},
             request_only=True,
         ),
         OpenApiExample(
@@ -56,7 +56,7 @@ class IncomeViewSet(ModelViewSet):
                 "id": "c9f2c7c0-1c8f-4c8f-9c3a-b63a5b62cafa",
                 "category": "TRANSPORT",
                 "name_of_item": "Bus fare",
-                "estimated_mount": 100,
+                "amount": 100,
             },
             response_only=True,
         ),

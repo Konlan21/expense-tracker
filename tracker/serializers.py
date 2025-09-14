@@ -13,5 +13,5 @@ class IncomeSerializer(ModelSerializer):
 class ExpenditureSerializer(ModelSerializer):
     class Meta:
         model = Expenditure
-        fields = ["id", "category", "name_of_item", "estimated_amount", "created_at", "updated_at"]
+        fields = ["id", "category", "name_of_item", "amount", "created_at", "updated_at"]
         read_only_fields = ["id", "created_at", "updated_at"]
