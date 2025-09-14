@@ -12,11 +12,14 @@ from .serializers import (
     CustomTokenObtainPairSerializer,
     LogoutSerializer,
     UserProfileSerializer,
+    SignupResponseSerializer
 )
 from .models import User
 from .docs import signup_schema, login_schema, logout_schema, profile_schema
 
 
+
+# Signup
 @signup_schema
 class SignupView(APIView):
     serializer_class = SignupRequestSerializer
@@ -26,10 +29,9 @@ class SignupView(APIView):
         serializer = SignupRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        return Response(
-            {"id": str(user.id), "email": user.email, "message": "User created successfully"},
-            status=status.HTTP_201_CREATED,
-        )
+
+        response_serializer = SignupResponseSerializer(user)
+        return Response(response_serializer.data, status=status.HTTP_201_CREATED)
 
 
 @login_schema
@@ -38,6 +40,7 @@ class LoginView(TokenObtainPairView):
     permission_classes = [AllowAny]
 
 
+#Logout 
 @logout_schema
 class LogoutView(APIView):
     serializer_class = LogoutSerializer
@@ -56,6 +59,7 @@ class LogoutView(APIView):
             return Response({"detail": "Invalid refresh token"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+# User Profile
 @profile_schema
 class UserProfileView(RetrieveUpdateAPIView):
     queryset = User.objects.all()
