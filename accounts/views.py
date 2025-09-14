@@ -153,6 +153,7 @@ class LogoutView(APIView):
         OpenApiExample(
             "Update Profile Request Example",
             value={
+                "email": "user@example.com",
                 "username": "updateduser",
                 "first_name": "Updated",
                 "last_name": "User",
