@@ -36,7 +36,6 @@ def test_list_incomes(api_client, test_user, auth_token):
 
 
 @pytest.mark.django_db
-@pytest.mark.django_db
 def test_update_income(api_client, test_user, auth_token):
     income = Income.objects.create(user=test_user, name_of_revenue="Salary", amount=2500)
     # api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token}")
