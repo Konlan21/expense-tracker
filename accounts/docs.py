@@ -31,6 +31,9 @@ signup_schema = extend_schema(
             value={
                 "id": "c9f2c7c0-1c8f-4c8f-9c3a-b63a5b62cafa",
                 "email": "user@example.com",
+                "username": "newuser",
+                "first_name": "John",
+                "last_name": "Doe",
                 "message": "User created successfully",
             },
             response_only=True,
