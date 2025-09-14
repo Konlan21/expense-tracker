@@ -1,3 +1,4 @@
+# accounts/docs.py
 from drf_spectacular.utils import extend_schema, OpenApiExample
 from .serializers import (
     SignupRequestSerializer,
@@ -6,10 +7,9 @@ from .serializers import (
     UserProfileSerializer,
 )
 
-# -------------------------
-# Signup
-# -------------------------
-signup_schema = dict(
+# Signup schema
+signup_schema = extend_schema(
+    tags=["User"],
     description="Register a new user with email, username, first_name, last_name and password.",
     request=SignupRequestSerializer,
     responses={201: {"example": {"id": "uuid", "email": "user@example.com", "message": "User created successfully"}}},
@@ -28,16 +28,19 @@ signup_schema = dict(
         ),
         OpenApiExample(
             "Signup Success Response",
-            value={"id": "uuid", "email": "user@example.com", "message": "User created successfully"},
+            value={
+                "id": "c9f2c7c0-1c8f-4c8f-9c3a-b63a5b62cafa",
+                "email": "user@example.com",
+                "message": "User created successfully",
+            },
             response_only=True,
         ),
     ],
 )
 
-# -------------------------
-# Login
-# -------------------------
-login_schema = dict(
+# Login schema
+login_schema = extend_schema(
+    tags=["User"],
     description="Login user with email and password to receive JWT access and refresh tokens.",
     request=CustomTokenObtainPairSerializer,
     responses={200: CustomTokenObtainPairSerializer},
@@ -52,7 +55,7 @@ login_schema = dict(
             value={
                 "refresh": "string.jwt.token",
                 "access": "string.jwt.token",
-                "id": "uuid",
+                "id": "c9f2c7c0-1c8f-4c8f-9c3a-b63a5b62cafa",
                 "email": "user@example.com",
                 "message": "User logged in successfully",
             },
@@ -61,10 +64,9 @@ login_schema = dict(
     ],
 )
 
-# -------------------------
-# Logout
-# -------------------------
-logout_schema = dict(
+# Logout schema
+logout_schema = extend_schema(
+    tags=["User"],
     description="Logout user by blacklisting the refresh token.",
     request=LogoutSerializer,
     responses={200: {"example": {"message": "User logged out successfully"}}},
@@ -82,18 +84,22 @@ logout_schema = dict(
     ],
 )
 
-# -------------------------
-# User Profile – per endpoint
-# -------------------------
-user_profile_schemas = {
-    "retrieve": dict(
-        description="Retrieve a user's profile by ID",
+# User Profile schema
+# accounts/docs.py
+from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiExample
+from .serializers import UserProfileSerializer
+
+
+profile_schema = extend_schema_view(
+    get=extend_schema(
+        tags=["User"],
+        description="Retrieve a user's profile by ID.",
         responses={200: UserProfileSerializer},
         examples=[
             OpenApiExample(
                 "Get Profile Success Response",
                 value={
-                    "id": "uuid",
+                    "id": "c9f2c7c0-1c8f-4c8f-9c3a-b63a5b62cafa",
                     "email": "user@example.com",
                     "username": "newuser",
                     "first_name": "John",
@@ -103,13 +109,14 @@ user_profile_schemas = {
             )
         ],
     ),
-    "update": dict(
-        description="Update a user's profile by ID",
+    put=extend_schema(
+        tags=["User"],
+        description="Fully update a user's profile by ID.",
         request=UserProfileSerializer,
         responses={200: UserProfileSerializer},
         examples=[
             OpenApiExample(
-                "Update Profile Request Example",
+                "Update Profile Request Example (PUT)",
                 value={
                     "email": "user@example.com",
                     "username": "updateduser",
@@ -117,41 +124,23 @@ user_profile_schemas = {
                     "last_name": "User",
                 },
                 request_only=True,
-            ),
-            OpenApiExample(
-                "Update Profile Response Example",
-                value={
-                    "id": "uuid",
-                    "email": "user@example.com",
-                    "username": "updateduser",
-                    "first_name": "Updated",
-                    "last_name": "User",
-                },
-                response_only=True,
-            ),
+            )
         ],
     ),
-    "partial_update": dict(
-        description="Partially update a user's profile by ID",
+    patch=extend_schema(
+        tags=["User"],
+        description="Partially update a user's profile by ID.",
         request=UserProfileSerializer,
         responses={200: UserProfileSerializer},
         examples=[
             OpenApiExample(
-                "Partial Update Profile Request Example",
-                value={"first_name": "Updated"},
-                request_only=True,
-            ),
-            OpenApiExample(
-                "Partial Update Profile Response Example",
+                "Partial Update Profile Request Example (PATCH)",
                 value={
-                    "id": "uuid",
-                    "email": "user@example.com",
-                    "username": "newuser",
                     "first_name": "Updated",
-                    "last_name": "Doe",
                 },
-                response_only=True,
-            ),
+                request_only=True,
+            )
         ],
     ),
-}
+)
+
