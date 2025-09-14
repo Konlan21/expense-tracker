@@ -8,7 +8,6 @@ from accounts.models import User
 # Income
 @pytest.mark.django_db
 def test_create_income(api_client, test_user, auth_token):
-    # api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token}")
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
 
@@ -26,7 +25,6 @@ def test_create_income(api_client, test_user, auth_token):
 @pytest.mark.django_db
 def test_list_incomes(api_client, test_user, auth_token):
     Income.objects.create(user=test_user, name_of_revenue="Salary", amount=2500)
-    # api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token}")
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
     url = reverse("income-list")
@@ -38,7 +36,6 @@ def test_list_incomes(api_client, test_user, auth_token):
 @pytest.mark.django_db
 def test_update_income(api_client, test_user, auth_token):
     income = Income.objects.create(user=test_user, name_of_revenue="Salary", amount=2500)
-    # api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token}")
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
 
     url = reverse("income-detail", kwargs={"pk": income.id})
@@ -56,7 +53,6 @@ def test_update_income(api_client, test_user, auth_token):
 @pytest.mark.django_db
 def test_delete_income(api_client, test_user, auth_token):
     income = Income.objects.create(user=test_user, name_of_revenue="Salary", amount=2500)
-    # api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token}")
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
 
     url = reverse("income-detail", kwargs={"pk": income.id})
@@ -68,7 +64,6 @@ def test_delete_income(api_client, test_user, auth_token):
 # Expenditure 
 @pytest.mark.django_db
 def test_create_expenditure(api_client, test_user, auth_token):
-    # api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token}")
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
 
     url = reverse("expense-list")
@@ -86,7 +81,6 @@ def test_create_expenditure(api_client, test_user, auth_token):
 @pytest.mark.django_db
 def test_list_expenditures(api_client, test_user, auth_token):
     Expenditure.objects.create(user=test_user, category="FOOD", name_of_item="Groceries", amount=150)
-    # api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token}")
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
 
@@ -99,7 +93,6 @@ def test_list_expenditures(api_client, test_user, auth_token):
 @pytest.mark.django_db
 def test_update_expenditure(api_client, test_user, auth_token):
     exp = Expenditure.objects.create(user=test_user, category="FOOD", name_of_item="Groceries", amount=150)
-    api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token}")
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
     url = reverse("expense-detail", kwargs={"pk": exp.id})
@@ -114,7 +107,6 @@ def test_update_expenditure(api_client, test_user, auth_token):
 @pytest.mark.django_db
 def test_delete_expenditure(api_client, test_user, auth_token):
     exp = Expenditure.objects.create(user=test_user, category="FOOD", name_of_item="Groceries", amount=150)
-    api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token}")
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
 
@@ -134,7 +126,6 @@ def test_unauthorized_access_income(api_client):
 
 @pytest.mark.django_db
 def test_invalid_income_creation(api_client, test_user, auth_token):
-    # api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token}")
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
     url = reverse("income-list")
     data = {"amount": "500.00"}  
@@ -144,7 +135,6 @@ def test_invalid_income_creation(api_client, test_user, auth_token):
 
 @pytest.mark.django_db
 def test_invalid_expenditure_category(api_client, test_user, auth_token):
-    # api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token}")
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
     url = reverse("expense-list")
@@ -169,7 +159,6 @@ def test_cross_user_access_blocked(api_client, test_user, auth_token):
     )
     income = Income.objects.create(user=other_user, name_of_revenue="Other Salary", amount=1000)
 
-    # api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token}")
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
 
