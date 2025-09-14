@@ -1,4 +1,3 @@
-# tracker/docs.py
 from drf_spectacular.utils import extend_schema, OpenApiExample
 
 # -------------------------

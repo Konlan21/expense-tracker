@@ -6,6 +6,7 @@ from django.core.validators import MinValueValidator
 
 
 
+# Income
 class Income(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='incomes')
@@ -25,6 +26,8 @@ class Income(models.Model):
     def __str__(self):
         return f"{self.name_of_revenue} - {self.amount}"
 
+
+# Expenditure
 class Expenditure(models.Model):
 
     CATEGORY_CHOICES = [

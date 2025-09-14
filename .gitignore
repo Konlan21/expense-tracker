@@ -22,7 +22,3 @@ env/
 # Operating System-specific
 .DS_Store
 Thumbs.db
-
-tracker/migrations
-accounts/migrations
-tracker/__init__.py
