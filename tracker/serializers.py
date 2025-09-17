@@ -6,7 +6,7 @@ from tracker.models import Income, Expenditure
 class IncomeSerializer(ModelSerializer):
     class Meta:
         model = Income
-        fields = ["id", "name_of_revenue", "amount", "created_at", "updated_at"]
+        fields = ["id", "nameOfRevenue", "amount", "created_at", "updated_at"]
         read_only_fields = ["id", "created_at", "updated_at"]
 
 

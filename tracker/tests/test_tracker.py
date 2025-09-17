@@ -1,30 +1,31 @@
 import pytest
 from django.urls import reverse
 from rest_framework import status
+from rest_framework.test import APIClient
 from tracker.models import Income, Expenditure
 from accounts.models import User
 
 
 # Income
 @pytest.mark.django_db
-def test_create_income(api_client, test_user, auth_token):
+def test_create_income(api_client: APIClient, test_user, auth_token: dict[str, str]):
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
 
     url = reverse("income-list")
     data = {
-        "name_of_revenue": "Salary",
+        "nameOfRevenue": "Salary",
         "amount": "2500.00"
     }
     response = api_client.post(url, data, format="json")
     assert response.status_code == status.HTTP_201_CREATED
-    assert response.data["name_of_revenue"] == "Salary"
+    assert response.data["nameOfRevenue"] == "Salary"
     assert response.data["amount"] == "2500.00"
 
 
 @pytest.mark.django_db
-def test_list_incomes(api_client, test_user, auth_token):
-    Income.objects.create(user=test_user, name_of_revenue="Salary", amount=2500)
+def test_list_incomes(api_client: APIClient, test_user, auth_token: dict[str, str]):
+    Income.objects.create(user=test_user, nameOfRevenue="Salary", amount=2500)
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
     url = reverse("income-list")
@@ -34,25 +35,25 @@ def test_list_incomes(api_client, test_user, auth_token):
 
 
 @pytest.mark.django_db
-def test_update_income(api_client, test_user, auth_token):
-    income = Income.objects.create(user=test_user, name_of_revenue="Salary", amount=2500)
+def test_update_income(api_client: APIClient, test_user, auth_token: dict[str, str]):
+    income = Income.objects.create(user=test_user, nameOfRevenue="Salary", amount=2500)
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
 
     url = reverse("income-detail", kwargs={"incomeID": income.id})
-    data = {"name_of_revenue": "Updated Salary", "amount": "3000.00"}
+    data = {"nameOfRevenue": "Updated Salary", "amount": "3000.00"}
 
     response = api_client.put(url, data, format="json")
     
     assert response.status_code == status.HTTP_200_OK
     income.refresh_from_db()
-    assert income.name_of_revenue == "Updated Salary"
+    assert income.nameOfRevenue == "Updated Salary"
     assert float(income.amount) == 3000.00
 
 
 
 @pytest.mark.django_db
-def test_delete_income(api_client, test_user, auth_token):
-    income = Income.objects.create(user=test_user, name_of_revenue="Salary", amount=2500)
+def test_delete_income(api_client: APIClient, test_user, auth_token: dict[str, str]):
+    income = Income.objects.create(user=test_user, nameOfRevenue="Salary", amount=2500)
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
 
     url = reverse("income-detail", kwargs={"incomeID": income.id})
@@ -63,7 +64,7 @@ def test_delete_income(api_client, test_user, auth_token):
 
 # Expenditure 
 @pytest.mark.django_db
-def test_create_expenditure(api_client, test_user, auth_token):
+def test_create_expenditure(api_client: APIClient, test_user, auth_token: dict[str, str]):
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
 
     url = reverse("expense-list")
@@ -79,7 +80,7 @@ def test_create_expenditure(api_client, test_user, auth_token):
 
 
 @pytest.mark.django_db
-def test_list_expenditures(api_client, test_user, auth_token):
+def test_list_expenditures(api_client: APIClient, test_user, auth_token: dict[str, str]):
     Expenditure.objects.create(user=test_user, category="FOOD", name_of_item="Groceries", amount=150)
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
@@ -91,7 +92,7 @@ def test_list_expenditures(api_client, test_user, auth_token):
 
 
 @pytest.mark.django_db
-def test_update_expenditure(api_client, test_user, auth_token):
+def test_update_expenditure(api_client: APIClient, test_user, auth_token: dict[str, str]):
     exp = Expenditure.objects.create(user=test_user, category="FOOD", name_of_item="Groceries", amount=150)
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
@@ -105,7 +106,7 @@ def test_update_expenditure(api_client, test_user, auth_token):
 
 
 @pytest.mark.django_db
-def test_delete_expenditure(api_client, test_user, auth_token):
+def test_delete_expenditure(api_client: APIClient, test_user, auth_token: dict[str, str]):
     exp = Expenditure.objects.create(user=test_user, category="FOOD", name_of_item="Groceries", amount=150)
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
@@ -118,14 +119,14 @@ def test_delete_expenditure(api_client, test_user, auth_token):
 
 # Extra Cases
 @pytest.mark.django_db
-def test_unauthorized_access_income(api_client):
+def test_unauthorized_access_income(api_client: APIClient):
     url = reverse("income-list")
     response = api_client.get(url)
     assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
 
 @pytest.mark.django_db
-def test_invalid_income_creation(api_client, test_user, auth_token):
+def test_invalid_income_creation(api_client: APIClient, test_user, auth_token: dict[str, str]):
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
     url = reverse("income-list")
     data = {"amount": "500.00"}  
@@ -134,7 +135,7 @@ def test_invalid_income_creation(api_client, test_user, auth_token):
 
 
 @pytest.mark.django_db
-def test_invalid_expenditure_category(api_client, test_user, auth_token):
+def test_invalid_expenditure_category(api_client: APIClient, test_user, auth_token: dict[str, str]):
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
     url = reverse("expense-list")
@@ -148,7 +149,7 @@ def test_invalid_expenditure_category(api_client, test_user, auth_token):
 
 
 @pytest.mark.django_db
-def test_cross_user_access_blocked(api_client, test_user, auth_token):
+def test_cross_user_access_blocked(api_client: APIClient, test_user, auth_token: dict[str, str]):
     # Another user creates an income
     other_user = User.objects.create_user(
         email="other@example.com",
@@ -157,7 +158,7 @@ def test_cross_user_access_blocked(api_client, test_user, auth_token):
         first_name="abc",
         last_name="abc"
     )
-    income = Income.objects.create(user=other_user, name_of_revenue="Other Salary", amount=1000)
+    income = Income.objects.create(user=other_user, nameOfRevenue="Other Salary", amount=1000)
 
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")

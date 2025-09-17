@@ -11,8 +11,8 @@ income_schemas = {
             OpenApiExample(
                 "Income List Example",
                 value=[
-                    {"id": "uuid1", "name_of_revenue": "Salary", "amount": 500},
-                    {"id": "uuid2", "name_of_revenue": "Freelance", "amount": 200},
+                    {"id": "uuid1", "nameOfRevenue": "Salary", "amount": 500},
+                    {"id": "uuid2", "nameOfRevenue": "Freelance", "amount": 200},
                 ],
                 response_only=True,
             ),
@@ -24,7 +24,7 @@ income_schemas = {
         examples=[
             OpenApiExample(
                 "Income Retrieve Example",
-                value={"id": "uuid1", "name_of_revenue": "Salary", "amount": 500},
+                value={"id": "uuid1", "nameOfRevenue": "Salary", "amount": 500},
                 response_only=True,
             )
         ]
@@ -35,12 +35,12 @@ income_schemas = {
         examples=[
             OpenApiExample(
                 "Create Income Example",
-                value={"name_of_revenue": "Salary", "amount": 500},
+                value={"nameOfRevenue": "Salary", "amount": 500},
                 request_only=True,
             ),
             OpenApiExample(
                 "Income Response Example",
-                value={"id": "uuid1", "name_of_revenue": "Salary", "amount": 500},
+                value={"id": "uuid1", "nameOfRevenue": "Salary", "amount": 500},
                 response_only=True,
             ),
         ],
