@@ -130,6 +130,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "accounts.User"
 
 
+# Restframework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
     'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -141,7 +142,7 @@ REST_FRAMEWORK = {
 
 
 
-
+# Drf spectacular
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Expense Tracker API',
     'DESCRIPTION': 'API documentation for Expense Tracker',
@@ -150,6 +151,7 @@ SPECTACULAR_SETTINGS = {
 }
 
 
+# Logging
 import os
 
 LOGGING = {
@@ -178,6 +180,18 @@ LOGGING = {
         "level": "ERROR",
     },
 }
+
+# settings.py
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
+    "REFRESH_TOKEN_LIFETIME": timedelta(hours=3),
+    "ROTATE_REFRESH_TOKENS": False,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "UPDATE_LAST_LOGIN": False,
+}
+
 
 
 
