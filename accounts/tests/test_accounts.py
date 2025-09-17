@@ -100,7 +100,7 @@ def test_logout_invalid_token(api_client, auth_token):
 @pytest.mark.django_db
 def test_get_user_profile_success(api_client, test_user, auth_token):
     access_token, _ = auth_token
-    url = reverse("user-profile", kwargs={"id": test_user.id})
+    url = reverse("user-profile", kwargs={"userID": test_user.id})
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {access_token}")
     response = api_client.get(url)
     assert response.status_code == status.HTTP_200_OK
@@ -110,7 +110,7 @@ def test_get_user_profile_success(api_client, test_user, auth_token):
 @pytest.mark.django_db
 def test_get_user_profile_invalid_id(api_client, auth_token):
     access_token, _ = auth_token
-    url = reverse("user-profile", kwargs={"id": "00000000-0000-0000-0000-000000000000"})
+    url = reverse("user-profile", kwargs={"userID": "00000000-0000-0000-0000-000000000000"})
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {access_token}")
     response = api_client.get(url)
     assert response.status_code in [
@@ -124,7 +124,7 @@ def test_get_user_profile_invalid_id(api_client, auth_token):
 @pytest.mark.django_db
 def test_update_user_profile_success(api_client, test_user, auth_token):
     access_token, _ = auth_token
-    url = reverse("user-profile", kwargs={"id": test_user.id})
+    url = reverse("user-profile", kwargs={"userID": test_user.id})
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {access_token}")
     data = {
         "first_name": "Updated",
@@ -140,7 +140,7 @@ def test_update_user_profile_success(api_client, test_user, auth_token):
 @pytest.mark.django_db
 def test_update_user_profile_missing_field(api_client, test_user, auth_token):
     access_token, _ = auth_token
-    url = reverse("user-profile", kwargs={"id": test_user.id})
+    url = reverse("user-profile", kwargs={"userID": test_user.id})
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {access_token}")
     data = {"first_name": "Updated"} 
     response = api_client.put(url, data, format="json")

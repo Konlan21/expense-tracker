@@ -38,7 +38,7 @@ def test_update_income(api_client, test_user, auth_token):
     income = Income.objects.create(user=test_user, name_of_revenue="Salary", amount=2500)
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
 
-    url = reverse("income-detail", kwargs={"pk": income.id})
+    url = reverse("income-detail", kwargs={"incomeID": income.id})
     data = {"name_of_revenue": "Updated Salary", "amount": "3000.00"}
 
     response = api_client.put(url, data, format="json")
@@ -55,7 +55,7 @@ def test_delete_income(api_client, test_user, auth_token):
     income = Income.objects.create(user=test_user, name_of_revenue="Salary", amount=2500)
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
 
-    url = reverse("income-detail", kwargs={"pk": income.id})
+    url = reverse("income-detail", kwargs={"incomeID": income.id})
     response = api_client.delete(url)
     assert response.status_code == status.HTTP_204_NO_CONTENT
     assert Income.objects.filter(id=income.id).count() == 0
@@ -95,7 +95,7 @@ def test_update_expenditure(api_client, test_user, auth_token):
     exp = Expenditure.objects.create(user=test_user, category="FOOD", name_of_item="Groceries", amount=150)
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
-    url = reverse("expense-detail", kwargs={"pk": exp.id})
+    url = reverse("expense-detail", kwargs={"expenditureID": exp.id})
     data = {"category": "FOOD", "name_of_item": "Supermarket", "amount": "200.00"}
     response = api_client.patch(url, data, format="json")
     assert response.status_code == status.HTTP_200_OK
@@ -110,7 +110,7 @@ def test_delete_expenditure(api_client, test_user, auth_token):
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
 
-    url = reverse("expense-detail", kwargs={"pk": exp.id})
+    url = reverse("expense-detail", kwargs={"expenditureID": exp.id})
     response = api_client.delete(url)
     assert response.status_code == status.HTTP_204_NO_CONTENT
     assert Expenditure.objects.filter(id=exp.id).count() == 0
@@ -162,7 +162,7 @@ def test_cross_user_access_blocked(api_client, test_user, auth_token):
 
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_token['access']}")
 
-    url = reverse("income-detail", kwargs={"pk": income.id})
+    url = reverse("income-detail", kwargs={"incomeID": income.id})
 
     # Test 
     response = api_client.get(url)

@@ -65,6 +65,7 @@ class UserProfileView(RetrieveUpdateAPIView):
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticated]
     lookup_field = "id"
+    lookup_url_kwarg = 'userID'
 
     def get(self, request, *args, **kwargs):
         try:

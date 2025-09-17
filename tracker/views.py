@@ -13,6 +13,8 @@ from .utils import apply_schemas
 class IncomeViewSet(ModelViewSet):
     serializer_class = IncomeSerializer
     permission_classes = [IsAuthenticated]
+    lookup_field = 'id'
+    lookup_url_kwarg = "incomeID"
 
     def get_queryset(self):
         return Income.objects.filter(user=self.request.user)
@@ -26,6 +28,8 @@ class IncomeViewSet(ModelViewSet):
 class ExpenditureViewSet(ModelViewSet):
     serializer_class = ExpenditureSerializer
     permission_classes = [IsAuthenticated]
+    lookup_field = "id"
+    lookup_url_kwarg = "expenditureID"
 
     def get_queryset(self):
         return Expenditure.objects.filter(user=self.request.user)
