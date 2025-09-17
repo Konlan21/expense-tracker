@@ -1,13 +1,13 @@
 # Expense Tracker API
 
-A Django REST API for tracking personal income and expenses. Supports JWT authentication, CRUD operations for income and expenditures, and comes with interactive Swagger documentation.
+A Django REST API for tracking personal income and expenses. Supports JWT authentication, CRUD operations for income and expenditures, and comes with interactive OpenAPI 3.0 documentation.
 
 ## Features
 
 - User registration and authentication with JWT.
 - Create, read, update, and delete income and expenditure records.
 - Role-based access to ensure users only access their own records.
-- API documentation via Swagger UI.
+- API documentation via OpenAPI 3.0.
 - Unit and integration tests for all endpoints.
 
 ## Tech Stack
@@ -15,7 +15,7 @@ A Django REST API for tracking personal income and expenses. Supports JWT authen
 - **Backend:** Django, Django REST Framework  
 - **Authentication:** JWT (Simple JWT)  
 - **Database:** SQLite (default) / can be configured for PostgreSQL  
-- **Documentation:** drf-spectacular (OpenAPI / Swagger)  
+- **Documentation:** OpenAPI 3.0  
 - **Testing:** Pytest, Django test client  
 
 ## Installation
@@ -60,7 +60,7 @@ pytest
 
 ## API Documentation
 
-- **Swagger UI:** [http://localhost:8000/api/docs/](http://localhost:8000/api/docs/)  
+- **OpenAPI 3.0:** [http://localhost:8000/api/docs/](http://localhost:8000/api/docs/)  
 - **Redoc:** [http://localhost:8000/api/redoc/](http://localhost:8000/api/redoc/)  
 - **OpenAPI schema:** [http://localhost:8000/api/schema/](http://localhost:8000/api/schema/)
 
@@ -70,7 +70,7 @@ pytest
 - **Income:** /tracker/incomes/  
 - **Expenditure:** /tracker/expenditures/  
 
-> Check Swagger UI for full request and response examples.
+> ChecK OpenAPI 3.0 for full request and response examples.
 
 
 
