@@ -10,7 +10,7 @@ from django.core.validators import MinValueValidator
 class Income(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='incomes')
-    name_of_revenue = models.CharField(max_length=255)
+    nameOfRevenue = models.CharField(max_length=255)
     amount = models.DecimalField(max_digits=12, decimal_places=2, validators=[MinValueValidator(1)])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
