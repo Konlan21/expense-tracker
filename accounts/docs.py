@@ -1,5 +1,4 @@
-# accounts/docs.py
-from drf_spectacular.utils import extend_schema, OpenApiExample
+from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiExample
 from .serializers import (
     SignupRequestSerializer,
     CustomTokenObtainPairSerializer,
@@ -7,9 +6,10 @@ from .serializers import (
     UserProfileSerializer,
 )
 
-# Signup schema
+# ---------------- Signup ----------------
 signup_schema = extend_schema(
     tags=["User"],
+    summary="Register a new user",
     description="Register a new user with email, username, first_name, last_name and password.",
     request=SignupRequestSerializer,
     responses={201: {"example": {"id": "uuid", "email": "user@example.com", "message": "User created successfully"}}},
@@ -41,9 +41,10 @@ signup_schema = extend_schema(
     ],
 )
 
-# Login schema
+# ---------------- Login ----------------
 login_schema = extend_schema(
     tags=["User"],
+    summary="Login user",
     description="Login user with email and password to receive JWT access and refresh tokens.",
     request=CustomTokenObtainPairSerializer,
     responses={200: CustomTokenObtainPairSerializer},
@@ -67,9 +68,10 @@ login_schema = extend_schema(
     ],
 )
 
-# Logout schema
+# ---------------- Logout ----------------
 logout_schema = extend_schema(
     tags=["User"],
+    summary="Logout user",
     description="Logout user by blacklisting the refresh token.",
     request=LogoutSerializer,
     responses={200: {"example": {"message": "User logged out successfully"}}},
@@ -87,15 +89,11 @@ logout_schema = extend_schema(
     ],
 )
 
-# User Profile schema
-# accounts/docs.py
-from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiExample
-from .serializers import UserProfileSerializer
-
-
+# ---------------- Profile ----------------
 profile_schema = extend_schema_view(
     get=extend_schema(
         tags=["User"],
+        summary="Retrieve user profile",
         description="Retrieve a user's profile by ID.",
         responses={200: UserProfileSerializer},
         examples=[
@@ -114,6 +112,7 @@ profile_schema = extend_schema_view(
     ),
     put=extend_schema(
         tags=["User"],
+        summary="Update user profile",
         description="Fully update a user's profile by ID.",
         request=UserProfileSerializer,
         responses={200: UserProfileSerializer},
@@ -132,18 +131,16 @@ profile_schema = extend_schema_view(
     ),
     patch=extend_schema(
         tags=["User"],
+        summary="Partially update profile",
         description="Partially update a user's profile by ID.",
         request=UserProfileSerializer,
         responses={200: UserProfileSerializer},
         examples=[
             OpenApiExample(
                 "Partial Update Profile Request Example (PATCH)",
-                value={
-                    "first_name": "Updated",
-                },
+                value={"first_name": "Updated"},
                 request_only=True,
             )
         ],
     ),
 )
-

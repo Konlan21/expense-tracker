@@ -1,119 +1,160 @@
-from drf_spectacular.utils import extend_schema, OpenApiExample
+from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiExample
+from .serializers import IncomeSerializer, ExpenditureSerializer
 
-# -------------------------
-# Income Schemas
-# -------------------------
-income_schemas = {
-    "list": extend_schema(
-        description="List all incomes of the authenticated user",
+# ---------------- Income Schemas ----------------
+income_schemas = extend_schema_view(
+    list=extend_schema(
         tags=["Income"],
-        examples=[
-            OpenApiExample(
-                "Income List Example",
-                value=[
-                    {"id": "uuid1", "nameOfRevenue": "Salary", "amount": 500},
-                    {"id": "uuid2", "nameOfRevenue": "Freelance", "amount": 200},
-                ],
-                response_only=True,
-            ),
-        ],
+        summary="List incomes",
+        description="Retrieve a list of all income records for the authenticated user.",
+        responses={200: IncomeSerializer(many=True)},
     ),
-    "retrieve": extend_schema(
-        description="Retrieve a single income by ID",
+    create=extend_schema(
         tags=["Income"],
+        summary="Add a new income",
+        description="Create a new income record for the authenticated user.",
+        request=IncomeSerializer,
+        responses={201: IncomeSerializer},
         examples=[
             OpenApiExample(
-                "Income Retrieve Example",
-                value={"id": "uuid1", "nameOfRevenue": "Salary", "amount": 500},
-                response_only=True,
-            )
-        ]
-    ),
-    "create": extend_schema(
-        description="Create a new income record for the authenticated user",
-        tags=["Income"],
-        examples=[
-            OpenApiExample(
-                "Create Income Example",
-                value={"nameOfRevenue": "Salary", "amount": 500},
+                "Create Income Request Example",
+                value={"amount": 2000, "source": "Salary", "date": "2025-09-01"},
                 request_only=True,
             ),
             OpenApiExample(
-                "Income Response Example",
-                value={"id": "uuid1", "nameOfRevenue": "Salary", "amount": 500},
+                "Create Income Success Response",
+                value={"id": 1, "amount": 2000, "source": "Salary", "date": "2025-09-01"},
                 response_only=True,
             ),
         ],
     ),
-    "update": extend_schema(
-        description="Update an existing income record completely",
+    retrieve=extend_schema(
         tags=["Income"],
+        summary="Retrieve an income",
+        description="Retrieve a specific income record by ID.",
+        responses={200: IncomeSerializer},
     ),
-    "partial_update": extend_schema(
-        description="Partially update an existing income record",
+    update=extend_schema(
         tags=["Income"],
-    ),
-    "destroy": extend_schema(
-        description="Delete an income record",
-        tags=["Income"],
-    ),
-}
-
-# -------------------------
-# Expenditure Schemas
-# -------------------------
-expenditure_schemas = {
-    "list": extend_schema(
-        description="List all expenditures of the authenticated user",
-        tags=["Expenditure"],
+        summary="Update an existing income",
+        description="Fully update an existing income record by ID. Requires authentication.",
+        request=IncomeSerializer,
+        responses={200: IncomeSerializer},
         examples=[
             OpenApiExample(
-                "Expenditure List Example",
-                value=[
-                    {"id": "uuid1", "category": "FOOD", "name_of_item": "Groceries", "amount": 150.00},
-                    {"id": "uuid2", "category": "TRANSPORT", "name_of_item": "Bus fare", "amount": 100.00},
-                ],
-                response_only=True,
-            )
-        ]
-    ),
-    "retrieve": extend_schema(
-        description="Retrieve a single expenditure record by its ID",
-        tags=["Expenditure"],
-        examples=[
-            OpenApiExample(
-                "Expenditure Retrieve Example",
-                value={"id": "uuid1", "category": "FOOD", "name_of_item": "Groceries", "amount": 150.00},
-                response_only=True,
-            )
-        ]
-    ),
-    "create": extend_schema(
-        description="Create a new expenditure record for the authenticated user",
-        tags=["Expenditure"],
-        examples=[
-            OpenApiExample(
-                "Create Expenditure Example",
-                value={"category": "TRANSPORT", "name_of_item": "Bus fare", "amount": 100.00},
+                "Update Income Request Example",
+                value={"amount": 2500, "source": "Salary", "date": "2025-09-01"},
                 request_only=True,
             ),
             OpenApiExample(
-                "Expenditure Response Example",
-                value={"id": "uuid1", "category": "TRANSPORT", "name_of_item": "Bus fare", "amount": 100.00},
+                "Update Income Success Response",
+                value={"id": 1, "amount": 2500, "source": "Salary", "date": "2025-09-01"},
                 response_only=True,
             ),
         ],
     ),
-    "update": extend_schema(
-        description="Update an existing expenditure record completely",
-        tags=["Expenditure"],
+    partial_update=extend_schema(
+        tags=["Income"],
+        summary="Partially update an income",
+        description="Update selected fields of an existing income record.",
+        request=IncomeSerializer,
+        responses={200: IncomeSerializer},
+        examples=[
+            OpenApiExample(
+                "Partial Update Income Request Example",
+                value={"amount": 1800},
+                request_only=True,
+            ),
+            OpenApiExample(
+                "Partial Update Income Success Response",
+                value={"id": 1, "amount": 1800, "source": "Salary", "date": "2025-09-01"},
+                response_only=True,
+            ),
+        ],
     ),
-    "partial_update": extend_schema(
-        description="Partially update an existing expenditure record",
-        tags=["Expenditure"],
+    destroy=extend_schema(
+        tags=["Income"],
+        summary="Delete an income",
+        description="Delete an existing income record by ID.",
+        responses={204: None},
     ),
-    "destroy": extend_schema(
-        description="Delete an expenditure record",
+)
+
+# ---------------- Expenditure Schemas ----------------
+expenditure_schemas = extend_schema_view(
+    list=extend_schema(
         tags=["Expenditure"],
+        summary="List expenditures",
+        description="Retrieve a list of all expenditure records for the authenticated user.",
+        responses={200: ExpenditureSerializer(many=True)},
     ),
-}
+    create=extend_schema(
+        tags=["Expenditure"],
+        summary="Add a new expenditure",
+        description="Create a new expenditure record for the authenticated user.",
+        request=ExpenditureSerializer,
+        responses={201: ExpenditureSerializer},
+        examples=[
+            OpenApiExample(
+                "Create Expenditure Request Example",
+                value={"amount": 500, "category": "Food", "date": "2025-09-01"},
+                request_only=True,
+            ),
+            OpenApiExample(
+                "Create Expenditure Success Response",
+                value={"id": 1, "amount": 500, "category": "Food", "date": "2025-09-01"},
+                response_only=True,
+            ),
+        ],
+    ),
+    retrieve=extend_schema(
+        tags=["Expenditure"],
+        summary="Retrieve an expenditure",
+        description="Retrieve a specific expenditure record by ID.",
+        responses={200: ExpenditureSerializer},
+    ),
+    update=extend_schema(
+        tags=["Expenditure"],
+        summary="Update an existing expenditure",
+        description="Fully update an existing expenditure record by ID. Requires authentication.",
+        request=ExpenditureSerializer,
+        responses={200: ExpenditureSerializer},
+        examples=[
+            OpenApiExample(
+                "Update Expenditure Request Example",
+                value={"amount": 600, "category": "Food", "date": "2025-09-01"},
+                request_only=True,
+            ),
+            OpenApiExample(
+                "Update Expenditure Success Response",
+                value={"id": 1, "amount": 600, "category": "Food", "date": "2025-09-01"},
+                response_only=True,
+            ),
+        ],
+    ),
+    partial_update=extend_schema(
+        tags=["Expenditure"],
+        summary="Partially update an expenditure",
+        description="Update selected fields of an existing expenditure record.",
+        request=ExpenditureSerializer,
+        responses={200: ExpenditureSerializer},
+        examples=[
+            OpenApiExample(
+                "Partial Update Expenditure Request Example",
+                value={"amount": 550},
+                request_only=True,
+            ),
+            OpenApiExample(
+                "Partial Update Expenditure Success Response",
+                value={"id": 1, "amount": 550, "category": "Food", "date": "2025-09-01"},
+                response_only=True,
+            ),
+        ],
+    ),
+    destroy=extend_schema(
+        tags=["Expenditure"],
+        summary="Delete an expenditure",
+        description="Delete an existing expenditure record by ID.",
+        responses={204: None},
+    ),
+)

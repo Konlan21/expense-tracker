@@ -1,9 +1,8 @@
 # tracker/utils.py
-from drf_spectacular.utils import extend_schema_view
-
-def apply_schemas(schema_dict):
+def apply_schemas(schema_decorator):
     """
-    Dynamically apply a dictionary of action schemas to a viewset.
-    Usage: @apply_schemas(docs.income_schemas)
+    Apply a schema decorator (created with extend_schema_view)
+    to a viewset.
+    Usage: @apply_schemas(income_schemas)
     """
-    return extend_schema_view(**schema_dict)
+    return schema_decorator

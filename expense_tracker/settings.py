@@ -144,8 +144,8 @@ REST_FRAMEWORK = {
 
 # Drf spectacular
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Expense Tracker API',
-    'DESCRIPTION': 'API documentation for Expense Tracker',
+    'TITLE': 'Personl Expense Tracker API',
+    'DESCRIPTION': 'API documentation for Personal Expense Tracker',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
@@ -181,9 +181,9 @@ LOGGING = {
     },
 }
 
-# settings.py
 from datetime import timedelta
 
+# SIMPLE JWT SETTINGS
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
     "REFRESH_TOKEN_LIFETIME": timedelta(hours=3),
