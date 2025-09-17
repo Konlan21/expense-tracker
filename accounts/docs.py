@@ -8,7 +8,7 @@ from .serializers import (
 
 # ---------------- Signup ----------------
 signup_schema = extend_schema(
-    tags=["User"],
+    tags=["user"],
     summary="Register a new user",
     description="Register a new user with email, username, first_name, last_name and password.",
     request=SignupRequestSerializer,
@@ -43,7 +43,7 @@ signup_schema = extend_schema(
 
 # ---------------- Login ----------------
 login_schema = extend_schema(
-    tags=["User"],
+    tags=["user"],
     summary="Login user",
     description="Login user with email and password to receive JWT access and refresh tokens.",
     request=CustomTokenObtainPairSerializer,
@@ -70,7 +70,7 @@ login_schema = extend_schema(
 
 # ---------------- Logout ----------------
 logout_schema = extend_schema(
-    tags=["User"],
+    tags=["user"],
     summary="Logout user",
     description="Logout user by blacklisting the refresh token.",
     request=LogoutSerializer,
@@ -92,7 +92,7 @@ logout_schema = extend_schema(
 # ---------------- Profile ----------------
 profile_schema = extend_schema_view(
     get=extend_schema(
-        tags=["User"],
+        tags=["user"],
         summary="Retrieve user profile",
         description="Retrieve a user's profile by ID.",
         responses={200: UserProfileSerializer},
@@ -111,7 +111,7 @@ profile_schema = extend_schema_view(
         ],
     ),
     put=extend_schema(
-        tags=["User"],
+        tags=["user"],
         summary="Update user profile",
         description="Fully update a user's profile by ID.",
         request=UserProfileSerializer,
@@ -130,7 +130,7 @@ profile_schema = extend_schema_view(
         ],
     ),
     patch=extend_schema(
-        tags=["User"],
+        tags=["user"],
         summary="Partially update profile",
         description="Partially update a user's profile by ID.",
         request=UserProfileSerializer,

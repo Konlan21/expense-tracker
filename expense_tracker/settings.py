@@ -145,7 +145,7 @@ REST_FRAMEWORK = {
 # Drf spectacular
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Personl Expense Tracker API',
-    'DESCRIPTION': 'API documentation for Personal Expense Tracker',
+    'DESCRIPTION': 'API documentation for Personal Expense Tracker App',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }

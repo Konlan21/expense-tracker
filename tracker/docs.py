@@ -4,13 +4,13 @@ from .serializers import IncomeSerializer, ExpenditureSerializer
 # ---------------- Income Schemas ----------------
 income_schemas = extend_schema_view(
     list=extend_schema(
-        tags=["Income"],
+        tags=["income"],
         summary="List incomes",
         description="Retrieve a list of all income records for the authenticated user.",
         responses={200: IncomeSerializer(many=True)},
     ),
     create=extend_schema(
-        tags=["Income"],
+        tags=["income"],
         summary="Add a new income",
         description="Create a new income record for the authenticated user.",
         request=IncomeSerializer,
@@ -29,13 +29,13 @@ income_schemas = extend_schema_view(
         ],
     ),
     retrieve=extend_schema(
-        tags=["Income"],
+        tags=["income"],
         summary="Retrieve an income",
         description="Retrieve a specific income record by ID.",
         responses={200: IncomeSerializer},
     ),
     update=extend_schema(
-        tags=["Income"],
+        tags=["income"],
         summary="Update an existing income",
         description="Fully update an existing income record by ID. Requires authentication.",
         request=IncomeSerializer,
@@ -54,7 +54,7 @@ income_schemas = extend_schema_view(
         ],
     ),
     partial_update=extend_schema(
-        tags=["Income"],
+        tags=["income"],
         summary="Partially update an income",
         description="Update selected fields of an existing income record.",
         request=IncomeSerializer,
@@ -73,7 +73,7 @@ income_schemas = extend_schema_view(
         ],
     ),
     destroy=extend_schema(
-        tags=["Income"],
+        tags=["income"],
         summary="Delete an income",
         description="Delete an existing income record by ID.",
         responses={204: None},
@@ -83,13 +83,13 @@ income_schemas = extend_schema_view(
 # ---------------- Expenditure Schemas ----------------
 expenditure_schemas = extend_schema_view(
     list=extend_schema(
-        tags=["Expenditure"],
+        tags=["expenditure"],
         summary="List expenditures",
         description="Retrieve a list of all expenditure records for the authenticated user.",
         responses={200: ExpenditureSerializer(many=True)},
     ),
     create=extend_schema(
-        tags=["Expenditure"],
+        tags=["expenditure"],
         summary="Add a new expenditure",
         description="Create a new expenditure record for the authenticated user.",
         request=ExpenditureSerializer,
@@ -108,13 +108,13 @@ expenditure_schemas = extend_schema_view(
         ],
     ),
     retrieve=extend_schema(
-        tags=["Expenditure"],
+        tags=["expenditure"],
         summary="Retrieve an expenditure",
         description="Retrieve a specific expenditure record by ID.",
         responses={200: ExpenditureSerializer},
     ),
     update=extend_schema(
-        tags=["Expenditure"],
+        tags=["expenditure"],
         summary="Update an existing expenditure",
         description="Fully update an existing expenditure record by ID. Requires authentication.",
         request=ExpenditureSerializer,
@@ -133,7 +133,7 @@ expenditure_schemas = extend_schema_view(
         ],
     ),
     partial_update=extend_schema(
-        tags=["Expenditure"],
+        tags=["expenditure"],
         summary="Partially update an expenditure",
         description="Update selected fields of an existing expenditure record.",
         request=ExpenditureSerializer,
@@ -152,7 +152,7 @@ expenditure_schemas = extend_schema_view(
         ],
     ),
     destroy=extend_schema(
-        tags=["Expenditure"],
+        tags=["expenditure"],
         summary="Delete an expenditure",
         description="Delete an existing expenditure record by ID.",
         responses={204: None},
