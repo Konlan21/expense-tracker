@@ -80,6 +80,7 @@ income_schemas = extend_schema_view(
     ),
 )
 
+
 # ---------------- Expenditure Schemas ----------------
 expenditure_schemas = extend_schema_view(
     list=extend_schema(
