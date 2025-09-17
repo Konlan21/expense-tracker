@@ -24,7 +24,7 @@ class Income(models.Model):
 
 
     def __str__(self):
-        return f"{self.name_of_revenue} - {self.amount}"
+        return f"{self.nameOfRevenue} - {self.amount}"
 
 
 # Expenditure
@@ -43,7 +43,7 @@ class Expenditure(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="expenditures")
     category = models.CharField(choices=CATEGORY_CHOICES, default='OTHER', max_length=20)
-    name_of_item = models.CharField(max_length=255)
+    nameOfItem = models.CharField(max_length=255)
     amount = models.DecimalField(max_digits=6, decimal_places=2, validators=[MinValueValidator(1)])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -59,4 +59,4 @@ class Expenditure(models.Model):
         ]
         
     def __str__(self):
-        return f"{self.name_of_item} - {self.amount}"
+        return f"{self.nameOfItem} - {self.amount}"
