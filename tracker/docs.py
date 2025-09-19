@@ -23,7 +23,7 @@ income_schemas = extend_schema_view(
             ),
             OpenApiExample(
                 "Create Income Success Response",
-                value={"incomeId": 1, "amount": 2000, "nameOfRevenue": "Salary", "date": "2025-09-01"},
+                value={"incomeId": "c56a4180-65aa-42ec-a945-5fd21dec0538", "amount": 2000, "nameOfRevenue": "Salary", "date": "2025-09-01"},
                 response_only=True,
             ),
         ],
@@ -48,7 +48,7 @@ income_schemas = extend_schema_view(
             ),
             OpenApiExample(
                 "Update Income Success Response",
-                value={"incomeID": 1, "amount": 2500, "nameOfRevenue": "Salary", "date": "2025-09-01"},
+                value={"incomeID": "c56a4180-65aa-42ec-a945-5fd21dec0538", "amount": 2500, "nameOfRevenue": "Salary", "date": "2025-09-01"},
                 response_only=True,
             ),
         ],
@@ -67,7 +67,7 @@ income_schemas = extend_schema_view(
             ),
             OpenApiExample(
                 "Partial Update Income Success Response",
-                value={"incomeID": 1, "amount": 1800, "nameOfRevenue": "Salary", "date": "2025-09-01"},
+                value={"incomeID": "c56a4180-65aa-42ec-a945-5fd21dec0538", "amount": 1800, "nameOfRevenue": "Salary", "date": "2025-09-01"},
                 response_only=True,
             ),
         ],
@@ -103,7 +103,7 @@ expenditure_schemas = extend_schema_view(
             ),
             OpenApiExample(
                 "Create Expenditure Success Response",
-                value={"expenditureID": 1, "amount": 500, "category": "FOOD", "nameOfItem": "Pizza", "date": "2025-09-01"},
+                value={"expenditureID": "c56a4180-65aa-42ec-a945-5fd21dac0538", "amount": 500, "category": "FOOD", "nameOfItem": "Pizza", "date": "2025-09-01"},
                 response_only=True,
             ),
         ],
@@ -128,7 +128,7 @@ expenditure_schemas = extend_schema_view(
             ),
             OpenApiExample(
                 "Update Expenditure Success Response",
-                value={"expenditureID": 1, "amount": 600, "category": "FOOD", "nameOfItem": "Pizza", "date": "2025-09-01"},
+                value={"expenditureID": "c56a4180-65aa-42ec-a945-5fd21dac0538", "amount": 600, "category": "FOOD", "nameOfItem": "Pizza", "date": "2025-09-01"},
                 response_only=True,
             ),
         ],
@@ -147,7 +147,7 @@ expenditure_schemas = extend_schema_view(
             ),
             OpenApiExample(
                 "Partial Update Expenditure Success Response",
-                value={"expenditureID": 1, "amount": 550, "category": "FOOD", "nameOfItem": "Pizza", "date": "2025-09-01"},
+                value={"expenditureID": "c56a4180-65aa-42ec-a945-5fd21dac0538", "amount": 550, "category": "FOOD", "nameOfItem": "Pizza", "date": "2025-09-01"},
                 response_only=True,
             ),
         ],
