@@ -18,12 +18,12 @@ income_schemas = extend_schema_view(
         examples=[
             OpenApiExample(
                 "Create Income Request Example",
-                value={"amount": 2000, "source": "Salary", "date": "2025-09-01"},
+                value={"amount": 2000, "nameOfRevenue": "Salary", "date": "2025-09-01"},
                 request_only=True,
             ),
             OpenApiExample(
                 "Create Income Success Response",
-                value={"id": 1, "amount": 2000, "source": "Salary", "date": "2025-09-01"},
+                value={"id": 1, "amount": 2000, "nameOfRevenue": "Salary", "date": "2025-09-01"},
                 response_only=True,
             ),
         ],
@@ -43,12 +43,12 @@ income_schemas = extend_schema_view(
         examples=[
             OpenApiExample(
                 "Update Income Request Example",
-                value={"amount": 2500, "source": "Salary", "date": "2025-09-01"},
+                value={"amount": 2500, "nameOfRevenue": "Salary", "date": "2025-09-01"},
                 request_only=True,
             ),
             OpenApiExample(
                 "Update Income Success Response",
-                value={"id": 1, "amount": 2500, "source": "Salary", "date": "2025-09-01"},
+                value={"id": 1, "amount": 2500, "nameOfRevenue": "Salary", "date": "2025-09-01"},
                 response_only=True,
             ),
         ],
@@ -67,7 +67,7 @@ income_schemas = extend_schema_view(
             ),
             OpenApiExample(
                 "Partial Update Income Success Response",
-                value={"id": 1, "amount": 1800, "source": "Salary", "date": "2025-09-01"},
+                value={"id": 1, "amount": 1800, "nameOfRevenue": "Salary", "date": "2025-09-01"},
                 response_only=True,
             ),
         ],
@@ -98,12 +98,12 @@ expenditure_schemas = extend_schema_view(
         examples=[
             OpenApiExample(
                 "Create Expenditure Request Example",
-                value={"amount": 500, "category": "Food", "date": "2025-09-01"},
+                value={"amount": 500, "category": "FOOD", "nameOfItem": "Pizza", "date": "2025-09-01"},
                 request_only=True,
             ),
             OpenApiExample(
                 "Create Expenditure Success Response",
-                value={"id": 1, "amount": 500, "category": "Food", "date": "2025-09-01"},
+                value={"id": 1, "amount": 500, "category": "FOOD", "nameOfItem": "Pizza", "date": "2025-09-01"},
                 response_only=True,
             ),
         ],
@@ -123,12 +123,12 @@ expenditure_schemas = extend_schema_view(
         examples=[
             OpenApiExample(
                 "Update Expenditure Request Example",
-                value={"amount": 600, "category": "Food", "date": "2025-09-01"},
+                value={"amount": 600, "category": "FOOD", "nameOfItem": "Pizza", "date": "2025-09-01"},
                 request_only=True,
             ),
             OpenApiExample(
                 "Update Expenditure Success Response",
-                value={"id": 1, "amount": 600, "category": "Food", "date": "2025-09-01"},
+                value={"id": 1, "amount": 600, "category": "FOOD", "nameOfItem": "Pizza", "date": "2025-09-01"},
                 response_only=True,
             ),
         ],
@@ -147,7 +147,7 @@ expenditure_schemas = extend_schema_view(
             ),
             OpenApiExample(
                 "Partial Update Expenditure Success Response",
-                value={"id": 1, "amount": 550, "category": "Food", "date": "2025-09-01"},
+                value={"id": 1, "amount": 550, "category": "FOOD", "nameOfItem": "Pizza", "date": "2025-09-01"},
                 response_only=True,
             ),
         ],
